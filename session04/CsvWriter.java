@@ -9,24 +9,23 @@ public class CsvWriter implements SensorDataHandler
 
     public CsvWriter(String filename) throws IOException
     {   
-        try
-        { 
-            Writer fw = new FileWriter(filename);
-            this.writer = new BufferedWriter(fw);
-        }
-        catch (IOException e) 
-        {
-            e.printStackTrace();
-            throw e; // Fehler weitergeben, damit der Aufrufer damit umgehen kann
-        }
+        Writer fw = new FileWriter(filename);
+        writer = new BufferedWriter(fw);
     }
 
     @Override
     public void handle(SensorReading reading)
     {
+        if (reading == null)
+        {
+            System.err.println("CsvWriter: null-Reading empfangen — übersprungen");
+            return;
+        }
+
         try 
         {
-            this.writer.write(reading.getSeq() + "," + reading.getStationId()+ "," + reading.getTemperatureC() + "," + reading.getHumidityPct());
+            writer.write(reading.getSeq() + "," + reading.getStationId()+ "," + reading.getTemperatureC() + "," + reading.getHumidityPct());
+            writer.newLine();
         } 
         catch (IOException e) {
             e.printStackTrace();
@@ -36,10 +35,10 @@ public class CsvWriter implements SensorDataHandler
     @Override
     public void close()
     {   
-        if (this.writer != null) {
+        if (writer != null) {
             try 
             {
-                this.writer.close();
+                writer.close();
             } 
             catch (IOException e) 
             {

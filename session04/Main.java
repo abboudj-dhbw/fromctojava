@@ -83,5 +83,19 @@ public class Main {
 
         // Das hier kompiliert nicht — Beweis dass private funktioniert:
         // r.temperatureC = -999.0;  // ← Compilerfehler: temperatureC has private access
+        
+        data.add(new SensorReading(1, "S1", 19.3, 64.2));
+        data.add(new SensorReading(2, "S1", 22.1, 61.0));
+        data.add(new SensorReading(3, "S1", -500.0, 58.0)); // ungültig
+        processAll(data, new ConsolePrinter());
+        CsvWriter csv = null;
+        try {
+            csv = new CsvWriter("sensor_data.csv");
+            processAll(data, csv);
+        } catch (IOException e) {
+            System.err.println("Konnte CSV-Datei nicht öffnen: " + e.getMessage());
+        } finally {
+            if (csv != null) { csv.close(); }
+        }
     }
 }
