@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.io.IOException;
 
 /**
  * Main
@@ -87,6 +88,14 @@ public class Main {
         data.add(new SensorReading(2, "S1", 22.1, 61.0));
         data.add(new SensorReading(3, "S1", -500.0, 58.0)); // ungültig
         processAll(data, new ConsolePrinter());
-        processAll(data, new CsvWriter("sensor_data.csv"));
+        CsvWriter csv = null;
+        try {
+            csv = new CsvWriter("sensor_data.csv");
+            processAll(data, csv);
+        } catch (IOException e) {
+            System.err.println("Konnte CSV-Datei nicht öffnen: " + e.getMessage());
+        } finally {
+            if (csv != null) { csv.close(); }
+        }
     }
 }

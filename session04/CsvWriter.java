@@ -8,20 +8,43 @@ public class CsvWriter implements SensorDataHandler
     private BufferedWriter writer;
 
     public CsvWriter(String filename) throws IOException
-    {
-        Writer fw = new FileWriter(filename);
-        BufferedWriter bw = new BufferedWriter(fw);
+    {   
+        try
+        { 
+            Writer fw = new FileWriter(filename);
+            this.writer = new BufferedWriter(fw);
+        }
+        catch (IOException e) 
+        {
+            e.printStackTrace();
+            throw e; // Fehler weitergeben, damit der Aufrufer damit umgehen kann
+        }
     }
 
     @Override
     public void handle(SensorReading reading)
     {
-        bw.write(reading.getSeq() + "," + reading.getStationId()+ "," + reading.getTemperatureC() + "," + reading.getHumidityPct()); 
+        try 
+        {
+            this.writer.write(reading.getSeq() + "," + reading.getStationId()+ "," + reading.getTemperatureC() + "," + reading.getHumidityPct());
+        } 
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void close()
     {   
-        if (this.writer != Null) {this.writer.close();}
+        if (this.writer != null) {
+            try 
+            {
+                this.writer.close();
+            } 
+            catch (IOException e) 
+            {
+                e.printStackTrace();
+            }
+        }
     }
 }
