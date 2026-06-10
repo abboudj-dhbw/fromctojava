@@ -77,10 +77,16 @@ public class Main {
         System.out.println("Vor Setter:  " + r.describe());
 
         r.setTemperatureC(-999.0);  // wird abgefangen
-        r.temperatureC = -999.0; // ← diese Zeile hinzufügen
+        // r.temperatureC = -999.0; // ← diese Zeile hinzufügen
         System.out.println("Nach Setter: " + r.describe());
 
         // Das hier kompiliert nicht — Beweis dass private funktioniert:
         // r.temperatureC = -999.0;  // ← Compilerfehler: temperatureC has private access
+        
+        data.add(new SensorReading(1, "S1", 19.3, 64.2));
+        data.add(new SensorReading(2, "S1", 22.1, 61.0));
+        data.add(new SensorReading(3, "S1", -500.0, 58.0)); // ungültig
+        processAll(data, new ConsolePrinter());
+        processAll(data, new CsvWriter("sensor_data.csv"));
     }
 }
