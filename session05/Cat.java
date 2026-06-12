@@ -1,10 +1,9 @@
-public class Cat 
+public class Cat extends Animal
 {
-    private String name;
     private boolean isindoor;
 
     public Cat(String name, boolean isindoor)
-    {
+    {   
         this.name = name;
         this.isindoor = isindoor;
     }

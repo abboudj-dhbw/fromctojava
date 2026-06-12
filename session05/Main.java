@@ -3,17 +3,20 @@ public class Main
 
     public static void main(String[] args)
     {
-        Dog d = new Dog("Bello", "Labrador");
+        Dog d = new Dog("Snoop", "Labrador");
 
-    Cat c = new Cat("Minka", true);
+        Cat c = new Cat("Bob",true);
 
-    d.makeSound();
+        // d.setName("Snoop");
+        // c.setName("Katze");
 
-    c.makeSound();
+        d.makeSound();
 
-    d.describe();
+        c.makeSound();
 
-    c.describe();
+        d.describe();
+
+        c.describe();
     }
     
 }
