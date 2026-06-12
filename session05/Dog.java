@@ -1,5 +1,3 @@
-package session05;
-
 public class Dog 
 {
     private String name;

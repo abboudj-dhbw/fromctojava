@@ -1,5 +1,3 @@
-package session05;
-
 public class Cat 
 {
     private String name;
@@ -18,7 +16,7 @@ public class Cat
 
     public void describe()
     {
-        System.out.println("Hund: " + this.name + (isindoor ? "Wohnungskatze":"Wildkartze"));
+        System.out.println("Katze: " + this.name + (isindoor ? " Wohnungskatze":" Wildkatze"));
     }
     
 }
